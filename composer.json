@@ -1,0 +1,17 @@
+{
+    "name": "iammati/php-docker-wrapper",
+    "description": "A little Docker Engine SDK for v1.41 written in PHP",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Iammati\\PhpDockerWrapper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mati Sediqi",
+            "email": "mati_01@icloud.com"
+        }
+    ]
+}
