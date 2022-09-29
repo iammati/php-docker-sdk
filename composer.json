@@ -1,6 +1,7 @@
 {
-    "name": "iammati/php-docker-wrapper",
+    "name": "iammati/php-docker-sdk",
     "description": "A little Docker Engine SDK for v1.41 written in PHP",
+    "version": "0.1.0",
     "type": "library",
     "license": "MIT",
     "autoload": {
