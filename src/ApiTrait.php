@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Iammati\PhpDockerWrapper;
+namespace Iammati\PhpDockerSdk;
 
 trait ApiTrait
 {

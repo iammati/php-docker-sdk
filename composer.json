@@ -1,18 +1,25 @@
 {
     "name": "iammati/php-docker-sdk",
     "description": "A little Docker Engine SDK for v1.41 written in PHP",
-    "version": "0.1.0",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Iammati\\PhpDockerWrapper\\": "src/"
-        }
+    "version": "0.1.1",
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.5"
     },
+    "require-dev": {
+        "symfony/var-dumper": "^6",
+        "spatie/laravel-ignition": "^1.5"
+    },
+    "license": "MIT",
     "authors": [
         {
             "name": "Mati Sediqi",
             "email": "mati_01@icloud.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Iammati\\PhpDockerSdk\\": "src/"
+        }
+    }
 }
