@@ -37,10 +37,10 @@ class Daemon
         return $this->client->get($this->getApiUri("containers/{$id}/json"));
     }
 
-    public function create(string $name, string $image, array $exposedPorts = []): ResponseInterface
+    public function create(string $name, string $image, array $exposedPorts = [], array $volumes = []): ResponseInterface
     {
         $options = json_decode(
-            json: file_get_contents(__DIR__.'/config/create.json'),
+            json: file_get_contents(__DIR__ . '/config/create.json'),
             associative: false,
             flags: JSON_OBJECT_AS_ARRAY
         );
@@ -66,6 +66,20 @@ class Daemon
             $options->HostConfig->PortBindings = json_decode(json_encode($_portBindings));
         }
 
+        if (!empty($volumes)) {
+            $mounts = [];
+
+            foreach ($volumes as $src => $target) {
+                $mounts[] = [
+                    'Source' => $src,
+                    'Target' => $target,
+                    'Type' => 'bind',
+                ];
+            }
+
+            $options->HostConfig->Mounts = json_decode(json_encode($mounts), true);
+        }
+
         $request = $this->client->post(
             $this->getApiUri("containers/create?name={$name}"),
             [
@@ -77,9 +91,9 @@ class Daemon
         return $request;
     }
 
-    public function start(string $id): PromiseInterface
+    public function start(string $id): ResponseInterface
     {
-        return $this->client->postAsync(
+        return $this->client->post(
             $this->getApiUri("containers/{$id}/start")
         );
     }
@@ -137,12 +151,12 @@ class Daemon
 
     public function exec(string $id, string $command, array $envVars = []): Exec
     {
-$config = '{
+        $config = '{
 "AttachStdin": false,
 "AttachStdout": true,
 "AttachStderr": true,
 "DetachKeys": "ctrl-p,ctrl-q",
-"Tty": true,    
+"Tty": true,
 "Cmd": ' . json_encode(explode(' ', $command)) . ',
 "Env": ' . json_encode($envVars) . '
 }';
